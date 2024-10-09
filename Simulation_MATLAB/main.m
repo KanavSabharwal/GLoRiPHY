@@ -2,7 +2,7 @@ clc;
 clear;
 close all;
 
-base_dir = '/mnt/ssd/kanav/simulation_jgj/SF_8_jgj_testing';
+base_dir = '/path/to/save/directory'; % Define the directory to save the files
 
 SF = param_configs(1);
 rng(7);

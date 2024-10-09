@@ -70,6 +70,7 @@ And the ```Dataset``` folder should look like this:
 Now you can run the bash script to generate the results. Please ensure to pass the *absolute path* to the `Dataset/`, and optionally, your preferred GPU ID:
 
 ```bash
+cd GLoRiPHY
 ./test_script.sh /absolute/path/to/Dataset [GPU_ID]
 ```
 
@@ -94,4 +95,5 @@ We share a Python simulation environment for end-to-end encoding, modulation, de
 This folder provides our implementation of the simulation framework used to generate the simulated dataset, as presented in *Figure 7(b)* of our paper.
 
 ## Further Details
-We will share more information specific to each module in their respective ```README``` files.
+- We will share more information specific to each module in their respective ```README``` files.
+- Given the enormous size of the training dataset, we do not host it publicly. Interested readers are suggested to contact us at kanav.sabharwal@u.nus.edu and we can share the dataset.

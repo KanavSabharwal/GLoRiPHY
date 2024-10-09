@@ -19,7 +19,8 @@ def main(opts):
     opts.hamming_window = torch.hamming_window(opts.stft_window).to(opts.device)
     opts.downchirp = torch.tensor(opts.demod.d_downchirp[:opts.demod.d_num_samples]).unsqueeze(0).to(opts.device)
 
-    opts.gt_dir = os.path.join(os.path.dirname(opts.data_dir),f'SF_{opts.sf}_GT')
+    if opts.real_data or opts.sim_data:
+        opts.gt_dir = os.path.join(os.path.dirname(opts.data_dir),f'SF_{opts.sf}_GT')
     
     opts.checkpoint_dir = opts.checkpoint_dir + '_' + str(opts.sf)
     if opts.test_mode:
@@ -48,7 +49,8 @@ def main(opts):
         os.remove(log_file)
     sys.stdout = FilteredLogger(log_file, sys.stdout, filters=["Progress"]) 
     sys.stderr = FilteredLogger(log_file, sys.stderr, filters=["Progress"])
-    # print_opts(opts)
+    if not opts.test_mode:
+        print_opts(opts)
 
     if opts.test_mode:
         if opts.train_denoiseGen:
