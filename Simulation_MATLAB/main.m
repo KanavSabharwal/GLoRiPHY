@@ -2,10 +2,15 @@ clc;
 clear;
 close all;
 
-base_dir = '/path/to/save/directory'; % Define the directory to save the files
+base_dir = '/path/to/store/simulated/dataset'; % Define the directory to save the files
 
 SF = param_configs(1);
 rng(7);
+
+sf_dir = fullfile(base_dir, sprintf('SF%d', SF));
+if ~exist(sf_dir, 'dir')
+    mkdir(sf_dir);
+end
 
 start_index = 1; 
 numPackets = 100; % Define the number of packets to generate
