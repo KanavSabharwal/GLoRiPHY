@@ -204,4 +204,7 @@ def testing_loop(dataloader, opts):
 
         with open(log_file_path, mode='a', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow(['NELoRa', epoch_acc.item()])
+            if opts.test_awgn:
+                writer.writerow(['NELoRa',opts.snr_list[0],epoch_acc.item()])
+            else:
+                writer.writerow(['NELoRa', epoch_acc.item()])

@@ -22,9 +22,6 @@ def main(opts):
     if opts.real_data or opts.sim_data:
         opts.gt_dir = os.path.join(os.path.dirname(opts.data_dir),f'SF_{opts.sf}_GT')
     
-    opts.checkpoint_dir = opts.checkpoint_dir + '_' + str(opts.sf)
-    if opts.test_mode:
-        opts.checkpoint_dir = opts.checkpoint_dir + '_test'
     create_dir(opts.checkpoint_dir)
 
     if opts.train_denoiseGenCore:
@@ -43,6 +40,8 @@ def main(opts):
                 test_dloader = lora_denoise_raw_loader_test_adjusted(opts)
             else:
                 train_dloader,test_dloader = lora_denoise_raw_loader(opts)
+        else:
+            train_dloader,test_dloader = lora_loader(opts)
     
     log_file = os.path.join(opts.checkpoint_dir,"filtered_output.log")
     if os.path.exists(log_file):

@@ -140,7 +140,7 @@ def create_parser():
                         help='The number of training images.')
     parser.add_argument('--test_data_size',
                         type=int,
-                        default=100000,
+                        default=5000,
                         help='The number of test images.')
     parser.add_argument('--phase1',
                         type=int,

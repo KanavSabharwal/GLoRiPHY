@@ -17,8 +17,8 @@ if __name__ == "__main__":
 
     # Load the first CSV file (for SF8)
     curr_path = os.path.join(os.getcwd(), 'GLoRiPHY_source/testing')
-    sf8_file = os.path.join(curr_path, 'test_SF8_sim_8_test/testing_log.csv')
-    sf9_file = os.path.join(curr_path,'test_SF9_sim_9_test/testing_log.csv')
+    sf8_file = os.path.join(curr_path, 'test_SF8_sim/testing_log.csv')
+    sf9_file = os.path.join(curr_path,'test_SF9_sim/testing_log.csv')
     
     data = {
         "SF8": {},
@@ -60,11 +60,11 @@ if __name__ == "__main__":
         "Node H": {},
     }
 
-    nodeD_file = os.path.join(curr_path, 'test_Node_D_8_test/testing_log.csv')
-    nodeE_file = os.path.join(curr_path, 'test_Node_E_8_test/testing_log.csv')
-    nodeF_file = os.path.join(curr_path, 'test_Node_F_8_test/testing_log.csv')
-    nodeG_file = os.path.join(curr_path, 'test_Node_G_8_test/testing_log.csv')
-    nodeH_file = os.path.join(curr_path, 'test_Node_H_8_test/testing_log.csv')
+    nodeD_file = os.path.join(curr_path, 'test_Node_D/testing_log.csv')
+    nodeE_file = os.path.join(curr_path, 'test_Node_E/testing_log.csv')
+    nodeF_file = os.path.join(curr_path, 'test_Node_F/testing_log.csv')
+    nodeG_file = os.path.join(curr_path, 'test_Node_G/testing_log.csv')
+    nodeH_file = os.path.join(curr_path, 'test_Node_H/testing_log.csv')
 
     populate_node_data("Node D", nodeD_file, new_node_data)
     populate_node_data("Node E", nodeE_file, new_node_data)
@@ -100,3 +100,49 @@ if __name__ == "__main__":
     plt.grid(True, which='both', axis ='y', linestyle='--', linewidth=0.5, color='grey')
     plt.tight_layout()
     plt.savefig(os.path.join(curr_path,'real_nodes_unseen.pdf'))
+
+    for sf in range(8,13,2):        
+        df = pd.read_csv(os.path.join(curr_path, f'awgn_tests_SF{sf}/testing_log.csv'))
+        our_df = df[df['Testing']=='GLoRiPHY']
+        nelora_df = df[df['Testing']=='NELoRa']
+        loraphy_df = df[df['Testing']=='LoRaPHY']
+        
+        fig, ax1 = plt.subplots(figsize=(10, 6))
+        ax1.plot(loraphy_df['SNR'], loraphy_df['Accuracy'], label='LoRaPHY', marker='x', linestyle='dotted', color='darkgoldenrod', linewidth=7, markersize=13)
+        ax1.plot(nelora_df['SNR'], 100 - nelora_df['Accuracy'], label='NELoRa', marker='^', linestyle='dashdot', color=color_cycle[1], linewidth=7, markersize=13)
+        ax1.plot(our_df['SNR'], 100 - our_df['Accuracy'], label='GLoRiPHY-Core', marker='o', color=color_cycle[3], linewidth=7, markersize=13)
+        ax1.set_xlabel('SNR (dB)')
+        ax1.set_ylabel('SER (%)')
+        ax1.set_xticks(range(-35, -14, 5))
+        ax1.set_xlim(-35, -15)
+        ax1.grid(True)
+        ax1.axhline(y=10, color='black', linestyle='--', linewidth=2)
+        if sf == 8:
+            ax1.legend(loc='lower left', fontsize=25, bbox_to_anchor=(-0.02, -0.035))
+        else:
+            ax1.legend(loc = 'upper right', fontsize = 25, bbox_to_anchor=(1.02, 1.035))
+
+        plt.grid(True, linestyle='--', linewidth=0.5, color='grey')
+        plt.tight_layout()
+        plt.savefig(os.path.join(curr_path,f'awgn_test_SF{sf}.pdf'))
+    
+    our_df_10_256 = pd.read_csv(os.path.join(curr_path, 'awgn_tests_SF10_emb256/testing_log.csv'))
+    our_df_10_512 = pd.read_csv(os.path.join(curr_path, 'awgn_tests_SF10/testing_log.csv'))
+    our_df_10_512 = our_df_10_512[our_df_10_512['Testing']=='GLoRiPHY']
+    our_df_10_1024 = pd.read_csv(os.path.join(curr_path,'awgn_tests_SF10_emb1024/testing_log.csv'))
+
+    fig, ax1 = plt.subplots(figsize=(10, 6))
+    ax1.plot(our_df_10_256['SNR'], 100 - our_df_10_256['Accuracy'], marker='o', color=color_cycle[3], label='Emb 256', alpha=0.5, linestyle='--', linewidth=3, markersize = 10)
+    ax1.plot(our_df_10_512['SNR'], 100 - our_df_10_512['Accuracy'], marker='^', color=color_cycle[3], label='Emb 512', alpha=0.7, linestyle='-.', linewidth=3, markersize = 10)
+    ax1.plot(our_df_10_1024['SNR'], 100 - our_df_10_1024['Accuracy'], marker='s', color=color_cycle[3], label='Emb 1024', linewidth=3, markersize = 10)
+
+    ax1.set_xlabel('SNR (dB)')
+    ax1.set_ylabel('Symbol Error Rate (SER %)')
+    ax1.set_xticks(range(-35, -14, 5))
+    ax1.set_xlim(-35, -15)
+    ax1.grid(True)
+    ax1.axhline(y=10, color='black', linestyle='--', linewidth=2, label='SER 10%')
+    plt.legend(loc='upper right')
+    plt.grid(True, linestyle='--', linewidth=0.5, color='grey')
+    plt.tight_layout()
+    plt.savefig(os.path.join(curr_path,f'awgn_test_embed_dim.pdf'))

@@ -299,7 +299,12 @@ def testing_loop_denoiseCore(test_dloader, opts):
 
     epoch_acc = running_corrects.double() / len(dataloader.dataset) * 100
     
+    
+    log_file_path = os.path.join(opts.checkpoint_dir,'testing_log.csv')
     print(f'Test Acc: {epoch_acc:.4f}')
+    with open(log_file_path, mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['GLoRiPHY', opts.snr_list[0], epoch_acc.item()])
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Denoise with Preamble Training

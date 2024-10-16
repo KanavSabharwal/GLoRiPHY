@@ -61,10 +61,9 @@ if __name__ == "__main__":
     opts.conv_dim_lstm = opts.n_classes * opts.fs // opts.bw
     opts.freq_size = opts.n_classes  
 
-    opts.checkpoint_dir = opts.checkpoint_dir + '_' + str(opts.sf)
     if opts.test_mode:
         checkpoint_tar = os.path.join(os.path.dirname(opts.root_path),'GLoRiPHY_source')
-        opts.checkpoint_dir = os.path.join(checkpoint_tar,opts.checkpoint_dir + '_test')
+        opts.checkpoint_dir = os.path.join(checkpoint_tar,opts.checkpoint_dir)
     else:
         opts.checkpoint_dir = os.path.join(opts.root_path,opts.checkpoint_dir)
     # create_dir(opts.checkpoint_dir)

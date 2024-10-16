@@ -86,5 +86,70 @@ for node in "${nodes[@]}"; do
     --free_gpu_id "$gpu_id"
 done
 
-# Plot results
-python3 $root_path_gloriphy/plot_results.py
+for sf in 8 10 12; do
+  dir_path="$root_path_gloriphy/testing/awgn_tests_SF${sf}"
+  mkdir -p "$dir_path"
+  log_file_path="$dir_path/testing_log.csv"
+
+  echo "Testing,SNR,Accuracy" > "$log_file_path"
+
+  for snr in $(seq -35 2 -14); do
+    transformer_dim=512
+    if [ "$sf" -eq 8 ]; then
+      transformer_dim=256
+    fi
+
+    python $root_path_gloriphy/main.py \
+      --root_path "$root_path_gloriphy" \
+      --train_denoiseGenCore \
+      --sf $sf \
+      --checkpoint_dir testing/awgn_tests_SF${sf} \
+      --load checkpoints/AWGN_filter/SF${sf} \
+      --test_mode \
+      --free_gpu_id "$gpu_id" \
+      --transformer_encoder_dim "$transformer_dim" \
+      --transformer_layers 2 \
+      --snr_list "$snr" 
+
+    python $root_path_baseline/main_baseline.py \
+      --root_path "$root_path_baseline" \
+      --sf $sf \
+      --checkpoint_dir testing/awgn_tests_SF${sf} \
+      --load checkpoints/AWGN/SF${sf} \
+      --test_mode \
+      --test_awgn \
+      --free_gpu_id "$gpu_id" \
+      --snr_list "$snr" 
+
+    python $root_path_gloriphy/check_LoRaPHY.py \
+      --root_path "$root_path_gloriphy" \
+      --sf $sf \
+      --checkpoint_dir testing/awgn_tests_SF${sf} \
+      --snr_list "$snr" 
+  done
+done
+
+for transformer_dim in 256 1024; do
+  dir_path="$root_path_gloriphy/testing/awgn_tests_SF10_emb${transformer_dim}"
+  mkdir -p "$dir_path"
+  log_file_path="$dir_path/testing_log.csv"
+  echo "Testing,SNR,Accuracy" > "$log_file_path"
+
+  for snr in $(seq -35 2 -14); do
+    python $root_path_gloriphy/main.py \
+      --root_path "$root_path_gloriphy" \
+      --train_denoiseGenCore \
+      --sf 10 \
+      --checkpoint_dir "$dir_path" \
+      --load "checkpoints/AWGN_filter/SF10/emb${transformer_dim}" \
+      --test_mode \
+      --free_gpu_id "$gpu_id" \
+      --transformer_encoder_dim "$transformer_dim" \
+      --transformer_layers 2 \
+      --snr_list "$snr"    
+  done
+done
+
+
+# #Plot results
+python $root_path_gloriphy/plot_results.py

@@ -30,7 +30,7 @@ tar -xvzf checkpoints_gloriphy.tar.gz
 ```
 3. Move the uncompressed folder to the ```GLoRiPHY/GLoRiPHY_source``` directory:
 ```bash
-mv checkpoints GLoRiPHY/GLoRiPHY_source
+mv checkpoints GLoRiPHY/GLoRiPHY_source/
 ```
 4. Download the [checkpoints_nelora.tar.gz](https://drive.google.com/file/d/1BdM1v3CVF10VFWurLquNKmMpoV6gJaAh/view?usp=sharing) file.
 5. Uncompress it and move the uncompressed folder to the ```GLoRiPHY/Basline/``` directory:
@@ -79,7 +79,18 @@ cd GLoRiPHY
 >chmod +x test_script.sh
 >```
 
-The process may take some time but will eventually generate two graphs. These graphs can be found in `GLoRiPHY/GLoRiPHY_source/testing`. The files `testing_sim.pdf` and `real_nodes_unseen.pdf` correspond to **Figure 8** and **Figure 9(b)** from the paper, respectively. These graphs represent a subset of the main results. Given the extensive data requirements, we provide a representative subset of the data.
+The generated graphs correspond to specific figures in the paper, as outlined below:
+
+| **Figure**         | **PDF File**                          |
+|--------------------|---------------------------------------|
+| Figure 8           | `testing_sim.pdf`                     |
+| Figure 9(b)        | `real_nodes_unseen.pdf`               |
+| Figure 11(a)       | `awgn_test_SF8.pdf`                   |
+| Figure 11(b)       | `awgn_test_SF10.pdf`                  |
+| Figure 11(c)       | `awgn_test_SF12.pdf`                  |
+| Figure 12          | `awgn_test_embed_dim.pdf`             |
+
+These graphs represent a subset of the main results, provided due to the extensive data requirements.
 
 ## Repository Structure
 ### 1. GLoRiPHY_source
@@ -95,5 +106,5 @@ We share a Python simulation environment for end-to-end encoding, modulation, de
 This folder provides our implementation of the simulation framework used to generate the simulated dataset, as presented in *Figure 7(b)* of our paper.
 
 ## Further Details
-- We will share more information specific to each module in their respective ```README``` files.
+- We share more information specific to each module in their respective ```README``` files.
 - Given the enormous size of the training dataset, we do not host it publicly. Interested readers are suggested to contact us at kanav.sabharwal@u.nus.edu and we can share the dataset.
