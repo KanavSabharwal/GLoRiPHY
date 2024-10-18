@@ -101,7 +101,8 @@ if __name__ == "__main__":
     plt.tight_layout()
     plt.savefig(os.path.join(curr_path,'real_nodes_unseen.pdf'))
 
-    for sf in range(8,13,2):        
+    # for sf in range(8,13,2):   # Uncmomment this to plot the results for SF8, SF10 and SF12
+    for sf in range(8,11,2):        
         df = pd.read_csv(os.path.join(curr_path, f'awgn_tests_SF{sf}/testing_log.csv'))
         our_df = df[df['Testing']=='GLoRiPHY']
         nelora_df = df[df['Testing']=='NELoRa']

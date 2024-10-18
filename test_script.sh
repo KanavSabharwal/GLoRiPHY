@@ -86,7 +86,8 @@ for node in "${nodes[@]}"; do
     --free_gpu_id "$gpu_id"
 done
 
-for sf in 8 10 12; do
+# for sf in 8 10 12; do # Uncomment for testing AWGN on SF8, SF10, and SF12
+for sf in 8 10 ; do
   dir_path="$root_path_gloriphy/testing/awgn_tests_SF${sf}"
   mkdir -p "$dir_path"
   log_file_path="$dir_path/testing_log.csv"

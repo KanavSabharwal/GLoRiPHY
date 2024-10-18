@@ -32,7 +32,7 @@ tar -xvzf checkpoints_gloriphy.tar.gz
 ```bash
 mv checkpoints GLoRiPHY/GLoRiPHY_source/
 ```
-4. Download the [checkpoints_nelora.tar.gz](https://drive.google.com/file/d/1BdM1v3CVF10VFWurLquNKmMpoV6gJaAh/view?usp=sharing) file.
+4. Download the [checkpoints_nelora.tar.gz](https://drive.google.com/file/d/16N2y5oI-grysQZedvBEpl4xXlEXQCA9N/view?usp=share_link) file.
 5. Uncompress it and move the uncompressed folder to the ```GLoRiPHY/Basline/``` directory:
 ```bash
 tar -xvzf checkpoints_nelora.tar.gz
@@ -87,10 +87,12 @@ The generated graphs correspond to specific figures in the paper, as outlined be
 | Figure 9(b)        | `real_nodes_unseen.pdf`               |
 | Figure 11(a)       | `awgn_test_SF8.pdf`                   |
 | Figure 11(b)       | `awgn_test_SF10.pdf`                  |
-| Figure 11(c)       | `awgn_test_SF12.pdf`                  |
 | Figure 12          | `awgn_test_embed_dim.pdf`             |
 
-These graphs represent a subset of the main results, provided due to the extensive data requirements.
+These graphs represent a subset of the main results, provided due to the extensive data requirements. We do not include the results from Figure 11(c) due to the large model checkpoint file size and the significant GPU requirements for NELoRa testing at SF12. To generate this figure, you can download the corresponding checkpoint from [SF12_NELoRa_AWGN](https://drive.google.com/file/d/1B69DQpUOCr_E6AKUb7cpklqUjC1KvZlk/view?usp=share_link). Place the checkpoint in `GLoRiPHY/Baseline/checkpoints/AWGN/SF12/`, then modify the scripts as follows:
+
+1. In `test_script.sh`, uncomment line 89 and comment out line 90.
+2. Similarly, in `GLORiPHY/GLoRiPHY_source/plot_results.py`, uncomment line 104 and comment out line 105 to plot the results.
 
 ## Repository Structure
 ### 1. GLoRiPHY_source
