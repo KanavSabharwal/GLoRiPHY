@@ -110,3 +110,19 @@ This folder provides our implementation of the simulation framework used to gene
 ## Further Details
 - We share more information specific to each module in their respective ```README``` files.
 - Given the enormous size of the training dataset, we do not host it publicly. Interested readers are suggested to contact us at kanav.sabharwal@u.nus.edu and we can share the dataset.
+
+## Citation
+
+If you find this project useful, please consider citing our work:
+```bibtex
+@inproceedings{10.1145/3666025.3699354,
+    author = {Sabharwal, Kanav and Ramesh, Soundarya and Wang, Jingxian and Divakaran, Dinil Mon and Chan, Mun Choon},
+    title = {Enhancing LoRa Reception with Generative Models: Channel-Aware Denoising of LoRaPHY Signals},
+    year = {2024},
+    doi = {10.1145/3666025.3699354},
+    booktitle = {Proceedings of the 22nd ACM Conference on Embedded Networked Sensor Systems},
+    pages = {507–520},
+    series = {SenSys '24}
+    }
+```
+
