@@ -1,6 +1,6 @@
 # GLoRiPHY - Artifact for "Enhancing LoRa Reception with Generative Models: Channel-Aware Denoising of LoRaPHY Signals" (SenSys'24)
 
-We maintain this repository to share the artifacts from our paper titled **"Enhancing LoRa Reception with Generative Models: Channel-Aware Denoising of LoRaPHY Signals"**, published in SenSys'24. The repository includes implementations and datasets necessary to reproduce some of the key results from the paper.
+We maintain this repository to share the artifacts from our paper titled **"Enhancing LoRa Reception with Generative Models: Channel-Aware Denoising of LoRaPHY Signals"**, [published in SenSys'24](https://dl.acm.org/doi/abs/10.1145/3666025.3699354). The repository includes implementations and datasets necessary to reproduce some of the key results from the paper.
 
 ## Setup and Test to Reproduce Results
 
